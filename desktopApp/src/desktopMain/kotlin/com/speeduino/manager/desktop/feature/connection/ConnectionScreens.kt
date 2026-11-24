@@ -54,8 +54,7 @@ internal fun DiagnosticScreen(
     onOpenConnectionSettings: () -> Unit = {},
     onOpenBluetoothConnection: () -> Unit = {},
     onOpenUsbSerialConnection: () -> Unit = {},
-    onOpenLogsEcuTools: () -> Unit = {},
-    onOpenInstitutional: () -> Unit = {}
+    onOpenLogsEcuTools: () -> Unit = {}
 ) {
     val strings = LocalStrings.current
     val firmwareInfo by controller.firmwareInfo.collectAsState()
@@ -187,9 +186,6 @@ internal fun DiagnosticScreen(
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     FilledTonalButton(onClick = onOpenLogsEcuTools) {
                         Text(strings["label.logsEcuToolsShort"])
-                    }
-                    FilledTonalButton(onClick = onOpenInstitutional) {
-                        Text(strings["label.institutionalShort"])
                     }
                 }
             }

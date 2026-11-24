@@ -6,7 +6,6 @@ import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Cable
 import androidx.compose.material.icons.filled.Dashboard
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.TableChart
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -22,7 +21,6 @@ internal enum class DesktopRoute(
     Ecu("route.ecu", "route.ecu", Icons.Default.TableChart, topLevel = true),
     Tools("route.tools", "route.tools", Icons.Default.Build, topLevel = true),
     Settings("app.settingsLabel", "app.settingsTitle", Icons.Default.Settings),
-    Institutional("route.institutional", "label.institutionalTitle", Icons.Default.Info),
     Connection("route.connection", "route.connection", Icons.Default.Cable),
     Fuel("route.fuel", "route.fuel", Icons.Default.TableChart),
     Ignition("route.ignition", "route.ignition", Icons.Default.TableChart),
@@ -106,8 +104,7 @@ internal fun parentRoute(route: DesktopRoute): DesktopRoute? {
         DesktopRoute.BeforeAfter,
         DesktopRoute.VirtualDyno,
         DesktopRoute.Connection,
-        DesktopRoute.Settings,
-        DesktopRoute.Institutional -> DesktopRoute.Tools
+        DesktopRoute.Settings -> DesktopRoute.Tools
         DesktopRoute.MapsTables -> DesktopRoute.Fuel
         DesktopRoute.ConfigsTuning -> DesktopRoute.EngineSetup
         DesktopRoute.LogsEcuTools,

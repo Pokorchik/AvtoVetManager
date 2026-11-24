@@ -48,7 +48,6 @@ internal fun HomeScreenDesktop(
     connectionState: ConnectionState,
     onToggleConnection: () -> Unit,
     onOpenRoute: (DesktopRoute) -> Unit,
-    onOpenInstitutional: () -> Unit,
 ) {
     val strings = LocalStrings.current
     val firmwareInfo by controller.firmwareInfo.collectAsState()

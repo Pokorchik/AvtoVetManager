@@ -39,8 +39,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import java.awt.Toolkit
-import java.awt.datatransfer.StringSelection
 import com.speeduino.manager.desktop.ConnectionType
 import com.speeduino.manager.desktop.DesktopSpeeduinoController
 import com.speeduino.manager.desktop.InitialScreen
@@ -51,7 +49,6 @@ import com.speeduino.manager.desktop.navigation.ScreenHost
 import com.speeduino.manager.desktop.navigation.parentRoute
 import com.speeduino.manager.desktop.ui.DisconnectedBanner
 import com.speeduino.manager.desktop.ui.HeaderBar
-import com.speeduino.manager.desktop.ui.chooseSaveFile
 
 @Composable
 internal fun DesktopAppShell() {
@@ -66,8 +63,6 @@ internal fun DesktopAppShell() {
         }
     }
     val strings = LocalStrings.current
-    var showReportProblemDialog by remember { mutableStateOf(false) }
-    var reportProblemText by remember { mutableStateOf("") }
 
     val connectionState by controller.connectionState.collectAsState()
     val liveData by controller.liveData.collectAsState()
@@ -101,42 +96,6 @@ internal fun DesktopAppShell() {
             appState.currentRoute = route
         }
     }
-    val onReportProblem = {
-        reportProblemText = buildString {
-            appendLine("Desktop report summary")
-            appendLine("App version: ${com.speeduino.manager.desktop.APP_VERSION}")
-            appendLine("Timestamp: ${java.time.ZonedDateTime.now()}")
-            appendLine("Route: ${appState.currentRoute}")
-            appendLine("Connection: ${connectionState.status}")
-            appendLine("Firmware: ${controller.diagnosticSummary.value.firmwareSignature ?: "unknown"}")
-            appendLine("Product: ${controller.diagnosticSummary.value.productString ?: "unknown"}")
-            appendLine("INI: ${controller.diagnosticSummary.value.activeIniSource ?: "unknown"}")
-            appendLine("Logger: ${controller.diagnosticSummary.value.diagnosticLoggerMode}")
-            appendLine("Last error: ${controller.lastError.value ?: "none"}")
-        }
-        showReportProblemDialog = true
-    }
-    val issueUrl = "https://github.com/alexandrefelipemuller/AvtoVetManager/issues/new"
-    val copyReportToClipboard = {
-        runCatching {
-            Toolkit.getDefaultToolkit().systemClipboard.setContents(StringSelection(reportProblemText), null)
-        }
-    }
-    val openIssueTracker = {
-        runCatching {
-            if (java.awt.Desktop.isDesktopSupported()) {
-                java.awt.Desktop.getDesktop().browse(java.net.URI(issueUrl))
-            }
-        }
-    }
-    val exportReport = {
-        chooseSaveFile("Export report", "speeduino_desktop_report.txt")?.let { file ->
-            runCatching {
-                file.writeText(reportProblemText)
-            }
-        }
-    }
-
     val themeMode by com.speeduino.manager.desktop.ThemeManager.themeMode.collectAsState()
     val backgroundBrush = if (themeMode == com.speeduino.manager.desktop.ThemeMode.DARK) {
         Brush.linearGradient(
@@ -240,8 +199,6 @@ ScreenHost(
                                     onBaudRateChange = { appState.baudRate = it.filter { ch -> ch.isDigit() } },
                                     onToggleConnection = onToggleConnection,
                                     onOpenSettings = { appState.currentRoute = DesktopRoute.Settings },
-                                    onOpenInstitutional = { appState.currentRoute = DesktopRoute.Institutional },
-                                    onReportProblem = onReportProblem,
                                     onOpenRoute = onOpenRoute,
                                     onOpenConnectionSettings = { appState.currentRoute = DesktopRoute.ConnectionSettings },
                                     onOpenConnection = { appState.currentRoute = DesktopRoute.Connection },
@@ -325,38 +282,6 @@ ScreenHost(
                 },
                 confirmButton = { TextButton(onClick = appState::discardAndNavigate) { Text(strings["unsaved.discard"]) } },
                 dismissButton = { TextButton(onClick = appState::keepEditing) { Text(strings["unsaved.keepEditing"]) } },
-            )
-        }
-
-        if (showReportProblemDialog) {
-            AlertDialog(
-                onDismissRequest = { showReportProblemDialog = false },
-                title = { Text(strings["route.institutional"]) },
-                text = { Text(reportProblemText) },
-                confirmButton = {
-                    FilledTonalButton(onClick = { showReportProblemDialog = false }) {
-                        Text(strings["action.cancel"])
-                    }
-                },
-                dismissButton = {
-                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        OutlinedButton(onClick = {
-                            copyReportToClipboard()
-                        }) {
-                            Text(strings["label.copy"])
-                        }
-                        OutlinedButton(onClick = {
-                            exportReport()
-                        }) {
-                            Text(strings["label.export"])
-                        }
-                        FilledTonalButton(onClick = {
-                            openIssueTracker()
-                        }) {
-                            Text(strings["label.openIssue"])
-                        }
-                    }
-                }
             )
         }
     }

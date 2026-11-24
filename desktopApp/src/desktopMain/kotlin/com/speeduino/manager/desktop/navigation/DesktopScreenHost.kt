@@ -26,8 +26,6 @@ internal fun ScreenHost(
     onBaudRateChange: (String) -> Unit,
     onToggleConnection: () -> Unit,
     onOpenSettings: () -> Unit,
-    onOpenInstitutional: () -> Unit,
-    onReportProblem: () -> Unit,
     onOpenRoute: (DesktopRoute) -> Unit,
     onOpenConnectionSettings: () -> Unit,
     onOpenConnection: () -> Unit,
@@ -58,7 +56,6 @@ internal fun ScreenHost(
     when (route) {
         DesktopRoute.Home,
         DesktopRoute.Settings,
-        DesktopRoute.Institutional,
         DesktopRoute.Dashboard -> AppRouteHost(
             route = route,
             controller = controller,
@@ -66,9 +63,7 @@ internal fun ScreenHost(
             connectionState = connectionState,
             onToggleConnection = onToggleConnection,
             onOpenSettings = onOpenSettings,
-            onOpenRoute = onOpenRoute,
-            onReportProblem = onReportProblem,
-            onOpenInstitutional = onOpenInstitutional
+            onOpenRoute = onOpenRoute
         )
         DesktopRoute.Connection,
         DesktopRoute.ConnectionSettings,
@@ -94,8 +89,7 @@ internal fun ScreenHost(
             onOpenBluetoothConnection = onOpenBluetoothConnection,
             onOpenUsbSerialConnection = onOpenUsbSerialConnection,
             onOpenSerialTunnel = onOpenSerialTunnel,
-            onOpenLogsEcuTools = onOpenLogsEcuTools,
-            onOpenInstitutional = onOpenInstitutional
+            onOpenLogsEcuTools = onOpenLogsEcuTools
         )
         DesktopRoute.Ecu -> com.speeduino.manager.desktop.EcuHubScreenDesktop(
             onOpenFuel = { onOpenRoute(DesktopRoute.Fuel) },
@@ -219,7 +213,6 @@ internal fun ScreenHost(
             onOpenBeforeAfter = { onOpenRoute(DesktopRoute.BeforeAfter) },
             onOpenVirtualDyno = { onOpenRoute(DesktopRoute.VirtualDyno) },
             onOpenSettings = onOpenSettings,
-            onOpenInstitutional = onOpenInstitutional,
             onOpenHistoricalLogViewer = onOpenHistoricalLogViewer,
             onOpenRestorePoints = { onOpenRoute(DesktopRoute.RestorePoints) },
             onOpenLogMap = { path -> controller.logMapPath.value = path; onOpenRoute(DesktopRoute.LogMap) },

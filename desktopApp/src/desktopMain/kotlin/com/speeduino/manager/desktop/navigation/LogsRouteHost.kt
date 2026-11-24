@@ -23,7 +23,6 @@ internal fun LogsRouteHost(
     onOpenBeforeAfter: () -> Unit,
     onOpenVirtualDyno: () -> Unit,
     onOpenSettings: () -> Unit,
-    onOpenInstitutional: () -> Unit,
     onOpenHistoricalLogViewer: (String) -> Unit,
     onOpenRestorePoints: () -> Unit = {},
     onOpenLogMap: (String) -> Unit = {},
@@ -40,7 +39,6 @@ internal fun LogsRouteHost(
             onOpenBeforeAfter = onOpenBeforeAfter,
             onOpenVirtualDyno = onOpenVirtualDyno,
             onOpenSettings = onOpenSettings,
-            onOpenInstitutional = onOpenInstitutional,
             onOpenHistoricalLogViewer = onOpenHistoricalLogViewer,
             onOpenRestorePoints = onOpenRestorePoints,
             onOpenLogMap = onOpenLogMap

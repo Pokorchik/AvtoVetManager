@@ -31,8 +31,7 @@ internal fun ConnectionRouteHost(
     onOpenBluetoothConnection: () -> Unit,
     onOpenUsbSerialConnection: () -> Unit,
     onOpenSerialTunnel: () -> Unit,
-    onOpenLogsEcuTools: () -> Unit,
-    onOpenInstitutional: () -> Unit
+    onOpenLogsEcuTools: () -> Unit
 ) {
     when (route) {
         DesktopRoute.Connection -> DiagnosticScreen(
@@ -53,8 +52,7 @@ internal fun ConnectionRouteHost(
             onOpenConnectionSettings = onOpenConnectionSettings,
             onOpenBluetoothConnection = onOpenBluetoothConnection,
             onOpenUsbSerialConnection = onOpenUsbSerialConnection,
-            onOpenLogsEcuTools = onOpenLogsEcuTools,
-            onOpenInstitutional = onOpenInstitutional
+            onOpenLogsEcuTools = onOpenLogsEcuTools
         )
         DesktopRoute.ConnectionSettings -> ConnectionSettingsScreenDesktop(
             controller = controller,
