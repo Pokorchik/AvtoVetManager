@@ -148,7 +148,8 @@ internal fun IgnitionScreenDesktop(
     onOpenIgnitionTable: () -> Unit,
     onOpenIgnitionTable2: () -> Unit,
     onOpenDwellTable: () -> Unit,
-    onOpenTriggerSettings: () -> Unit
+    onOpenTriggerSettings: () -> Unit,
+    onOpenRoute: (com.speeduino.manager.desktop.navigation.DesktopRoute) -> Unit = {}
 ) {
     val strings = LocalStrings.current
     KioskScreenScaffold(
@@ -160,6 +161,11 @@ internal fun IgnitionScreenDesktop(
         KioskFeatureCard(strings["label.ignitionTable2"], strings["label.ignitionTableDesc"], onClick = onOpenIgnitionTable2)
         KioskFeatureCard(strings["route.dwellTable"], strings["label.dwellTableDesc"], onClick = onOpenDwellTable)
         KioskFeatureCard(strings["route.triggerSettings"], strings["label.triggerSettingsDesc"], onClick = onOpenTriggerSettings)
+        KioskFeatureCard(
+            strings["label.curveComposerCardTitle"],
+            strings["label.curveComposerCardDesc"],
+            onClick = { onOpenRoute(com.speeduino.manager.desktop.navigation.DesktopRoute.IgnitionCurveComposer) }
+        )
     }
 }
 

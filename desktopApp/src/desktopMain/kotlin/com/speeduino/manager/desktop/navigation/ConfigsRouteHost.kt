@@ -11,6 +11,7 @@ import com.speeduino.manager.desktop.IgnitionTableScreenDesktop
 import com.speeduino.manager.desktop.IdleControlScreenDesktop
 import com.speeduino.manager.desktop.SecondarySerialScreenDesktop
 import com.speeduino.manager.desktop.feature.configs.EngineConstantsScreenDesktop
+import com.speeduino.manager.desktop.feature.configs.IgnitionCurveComposerScreenDesktop
 import com.speeduino.manager.desktop.feature.configs.InputOutputEditorScreenDesktop
 import com.speeduino.manager.desktop.feature.configs.InjectorConfigScreenDesktop
 import com.speeduino.manager.desktop.feature.configs.EngineProtectionEditorScreenDesktop
@@ -43,7 +44,8 @@ internal fun ConfigsRouteHost(
             onOpenIgnitionTable = onOpenIgnitionTable,
             onOpenIgnitionTable2 = onOpenIgnitionTable2,
             onOpenDwellTable = onOpenDwellTable,
-            onOpenTriggerSettings = onOpenTriggerSettings
+            onOpenTriggerSettings = onOpenTriggerSettings,
+            onOpenRoute = onOpenRoute
         )
         DesktopRoute.EngineSetup,
         DesktopRoute.ConfigsTuning -> ConfigsTuningScreenDesktop(
@@ -73,6 +75,7 @@ internal fun ConfigsRouteHost(
         DesktopRoute.IgnitionConfig -> IgnitionConfigScreenDesktop(controller)
         DesktopRoute.IgnitionTable -> IgnitionTableScreenDesktop(controller, mapIndex = 1)
         DesktopRoute.IgnitionTable2 -> IgnitionTableScreenDesktop(controller, mapIndex = 2)
+        DesktopRoute.IgnitionCurveComposer -> IgnitionCurveComposerScreenDesktop(controller)
         DesktopRoute.DwellTable -> DwellTableScreenDesktop(controller)
         DesktopRoute.IdleControl -> IdleControlScreenDesktop(controller)
         DesktopRoute.ClosedLoopCorrections -> ClosedLoopCorrectionsScreenDesktop(controller)

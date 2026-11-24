@@ -1,6 +1,7 @@
 package com.speeduino.manager.desktop.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ShowChart
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Cable
 import androidx.compose.material.icons.filled.Dashboard
@@ -40,6 +41,7 @@ internal enum class DesktopRoute(
     VeTable2("route.veTable2", "route.veTable2", Icons.Default.TableChart),
     IgnitionTable("route.ignitionTable", "route.ignitionTable", Icons.Default.TableChart),
     IgnitionTable2("route.ignitionTable2", "route.ignitionTable2", Icons.Default.TableChart),
+    IgnitionCurveComposer("route.ignitionCurveComposer", "route.ignitionCurveComposer", Icons.AutoMirrored.Filled.ShowChart),
     AfrTable("route.afrTable", "route.afrTable", Icons.Default.TableChart),
     DwellTable("route.dwellTable", "route.dwellTable", Icons.Default.TableChart),
     EngineConstants("route.engineConstants", "route.engineConstants", Icons.Default.Settings),
@@ -79,6 +81,7 @@ internal fun parentRoute(route: DesktopRoute): DesktopRoute? {
         DesktopRoute.AfrTable -> DesktopRoute.Fuel
         DesktopRoute.IgnitionTable,
         DesktopRoute.IgnitionTable2,
+        DesktopRoute.IgnitionCurveComposer,
         DesktopRoute.DwellTable,
         DesktopRoute.TriggerSettings,
         DesktopRoute.IgnitionConfig -> DesktopRoute.Ignition

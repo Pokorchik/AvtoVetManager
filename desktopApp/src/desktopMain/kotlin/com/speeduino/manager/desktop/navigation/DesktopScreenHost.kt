@@ -119,6 +119,7 @@ internal fun ScreenHost(
         DesktopRoute.IgnitionConfig,
         DesktopRoute.IgnitionTable,
         DesktopRoute.IgnitionTable2,
+        DesktopRoute.IgnitionCurveComposer,
         DesktopRoute.DwellTable,
         DesktopRoute.TriggerSettings -> ConfigsRouteHost(
             route = route,
@@ -135,7 +136,8 @@ internal fun ScreenHost(
             onOpenTriggerSettings = onOpenTriggerSettings,
             onOpenIdleControl = onOpenIdleControl,
             onOpenEngineProtection = onOpenEngineProtection,
-            onOpenClosedLoopCorrections = onOpenClosedLoopCorrections
+            onOpenClosedLoopCorrections = onOpenClosedLoopCorrections,
+            onOpenRoute = onOpenRoute
         )
         DesktopRoute.EngineSetup,
         DesktopRoute.ConfigsTuning,
