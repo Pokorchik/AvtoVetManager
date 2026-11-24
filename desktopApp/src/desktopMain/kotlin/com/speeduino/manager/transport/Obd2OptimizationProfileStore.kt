@@ -62,7 +62,7 @@ class Obd2OptimizationProfileStore(
     private fun storeProperties(properties: Properties) {
         file.parentFile?.mkdirs()
         file.outputStream().use { output ->
-            properties.store(output, "SpeeduinoManager Desktop OBD2 profiles")
+            properties.store(output, "AvtoVetManager OBD2 profiles")
         }
     }
 

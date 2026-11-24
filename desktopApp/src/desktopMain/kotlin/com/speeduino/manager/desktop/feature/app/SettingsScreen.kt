@@ -62,11 +62,6 @@ internal fun SettingsScreen(controller: DesktopSpeeduinoController) {
     val readOnlySafeMode by controller.readOnlySafeMode.collectAsState()
     val languageOptions = listOf(
         AppLanguage.EN to "English",
-        AppLanguage.PT to "Português",
-        AppLanguage.ES to "Español",
-        AppLanguage.FR to "Français",
-        AppLanguage.ID to "Bahasa Indonesia",
-        AppLanguage.ZH to "中文",
         AppLanguage.RU to "Русский",
         AppLanguage.UK to "Українська"
     )

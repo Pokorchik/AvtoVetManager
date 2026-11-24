@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Cross-platform client for Speeduino and MegaSquirt/rusEFI-family ECUs, built with Kotlin Multiplatform + Compose Multiplatform. It reuses protocol/model/connection code from the SpeeduinoManager Android project and ships it to desktop (Windows/macOS/Linux) and iOS. New functionality should prioritize the `shared` module so Android, desktop, and iOS stay on the same core.
+Cross-platform client for Speeduino and MegaSquirt/rusEFI-family ECUs, built with Kotlin Multiplatform + Compose Multiplatform. It reuses protocol/model/connection code from the AvtoVetManager Android project and ships it to desktop (Windows/macOS/Linux) and iOS. New functionality should prioritize the `shared` module so Android, desktop, and iOS stay on the same core.
 
 ## Commands
 
@@ -48,13 +48,13 @@ This runs the full Gradle build inside a `linux/arm64` Debian container via Dock
 - Expect ~1.5–2h under QEMU emulation on typical dev hardware (vs. minutes natively) — it's CPU-bound Kotlin/Compose compilation, not actually stuck.
 - The resulting `.deb` is a normal `dpkg`/`apt install ./foo.deb` target on the Pi.
 
-Local protocol testing without real hardware: run `python3 simulator/speeduino_tcp_simulator.py --host 0.0.0.0 --port 5555` (from the separate main SpeeduinoManager repo, not this one) and connect the desktop app to `127.0.0.1:5555`.
+Local protocol testing without real hardware: run `python3 simulator/speeduino_tcp_simulator.py --host 0.0.0.0 --port 5555` (from the separate main AvtoVetManager repo, not this one) and connect the desktop app to `127.0.0.1:5555`.
 
 ## Module layout
 
 - `shared/` — Kotlin Multiplatform core: protocol parsing/CRC, connection transports, ECU models/table definitions, live-data parsing, storage, tuning analysis. Targets: `jvm("desktop")`, `iosArm64()`, `iosSimulatorArm64()`.
-- `desktopApp/` — Compose UI. Also multiplatform: `desktopMain` (Compose Desktop windowed app) and `iosMain` (Compose UIViewController embedded via `SpeeduinoManagerKit` framework). Same module, two very different UIs sharing navigation-adjacent code.
-- `iosApp/` — thin Xcode project (`AppDelegate.swift`, `Info.plist`) that hosts the `SpeeduinoManagerKit` framework produced by `desktopApp`'s iOS targets.
+- `desktopApp/` — Compose UI. Also multiplatform: `desktopMain` (Compose Desktop windowed app) and `iosMain` (Compose UIViewController embedded via `AvtoVetManagerKit` framework). Same module, two very different UIs sharing navigation-adjacent code.
+- `iosApp/` — thin Xcode project (`AppDelegate.swift`, `Info.plist`) that hosts the `AvtoVetManagerKit` framework produced by `desktopApp`'s iOS targets.
 
 ### `shared` source set structure
 

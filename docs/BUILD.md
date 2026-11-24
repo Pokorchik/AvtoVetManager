@@ -10,7 +10,7 @@ Este arquivo descreve o fluxo esperado para o projeto KMP desktop. Ajuste os com
 
 ## Build (desktop Linux)
 
-Na pasta `SpeeduinoManagerDesktop`:
+Na pasta `AvtoVetManager`:
 
 ```bash
 ./gradlew :desktopApp:build

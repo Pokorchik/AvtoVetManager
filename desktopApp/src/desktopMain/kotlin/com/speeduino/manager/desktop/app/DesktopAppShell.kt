@@ -116,7 +116,7 @@ internal fun DesktopAppShell() {
         }
         showReportProblemDialog = true
     }
-    val issueUrl = "https://github.com/alexandrefelipemuller/SpeeduinoManagerDesktop/issues/new"
+    val issueUrl = "https://github.com/alexandrefelipemuller/AvtoVetManager/issues/new"
     val copyReportToClipboard = {
         runCatching {
             Toolkit.getDefaultToolkit().systemClipboard.setContents(StringSelection(reportProblemText), null)

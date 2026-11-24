@@ -311,7 +311,7 @@ internal object DesktopSettingsStore {
 
     private fun storeProperties(file: File, properties: Properties) {
         file.outputStream().use { output ->
-            properties.store(output, "SpeeduinoManager Desktop settings")
+            properties.store(output, "AvtoVetManager settings")
         }
     }
 

@@ -18,7 +18,7 @@ internal class DesktopBeforeAfterSelectionStore {
             selection.beforeLogPath?.let { setProperty(KEY_BEFORE, it) }
             selection.afterLogPath?.let { setProperty(KEY_AFTER, it) }
         }
-        file.outputStream().use { props.store(it, "Speeduino Manager Desktop before/after selection") }
+        file.outputStream().use { props.store(it, "AvtoVetManager before/after selection") }
     }
 
     fun load(): DesktopBeforeAfterSelection {

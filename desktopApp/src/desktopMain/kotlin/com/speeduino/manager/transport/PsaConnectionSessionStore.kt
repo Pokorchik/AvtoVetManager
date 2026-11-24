@@ -65,7 +65,7 @@ class PsaConnectionSessionStore(
     private fun storeProperties(properties: Properties) {
         file.parentFile?.mkdirs()
         file.outputStream().use { output ->
-            properties.store(output, "SpeeduinoManager Desktop PSA sessions")
+            properties.store(output, "AvtoVetManager PSA sessions")
         }
     }
 

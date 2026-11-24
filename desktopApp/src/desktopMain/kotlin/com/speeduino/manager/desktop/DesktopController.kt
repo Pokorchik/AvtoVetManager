@@ -1641,7 +1641,7 @@ internal class DesktopSpeeduinoController(
                 val baseName = sanitizedName.substringBeforeLast('.').ifBlank { strings["label.logFilenamePrefix"] }
                 val targetDir = java.nio.file.Paths.get(
                     System.getProperty("user.home"),
-                    "SpeeduinoManagerDesktop",
+                    "AvtoVetManager",
                     "logs"
                 )
                 java.nio.file.Files.createDirectories(targetDir)
@@ -1706,8 +1706,8 @@ internal class DesktopSpeeduinoController(
         activeSignals: List<LogExportSignal>
     ) {
         val captureDateFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US)
-        writer.appendLine("\"speeduino_manager_live_log: SpeeduinoManager Desktop LiveData Export\"")
-        writer.appendLine("\"Capture Date: ${captureDateFormat.format(Date())}, File author: SpeeduinoManager\"")
+        writer.appendLine("\"speeduino_manager_live_log: AvtoVetManager LiveData Export\"")
+        writer.appendLine("\"Capture Date: ${captureDateFormat.format(Date())}, File author: AvtoVetManager\"")
 
         val selectedRawFieldNames = activeSignals.map { it.header }.toSet()
         val selectedFields = fields.filter { field -> selectedRawFieldNames.contains(field.name) }

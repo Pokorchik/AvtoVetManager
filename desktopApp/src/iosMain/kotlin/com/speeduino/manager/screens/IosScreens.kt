@@ -29,7 +29,7 @@ fun IosToolsScreen(
 ) {
     ScrollableScreen {
         SectionHeader(
-            title = "Speeduino Manager",
+            title = "AvtoVetManager",
             description = "ECU tuning and diagnostics",
         )
 
@@ -250,7 +250,7 @@ fun IosInstitutionalScreen() {
             description = "App information",
         )
         Text(
-            text = "Speeduino Manager for iOS\nVersion 1.0.4",
+            text = "AvtoVetManager for iOS\nVersion 1.0.4",
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.padding(16.dp),
         )

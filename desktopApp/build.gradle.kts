@@ -87,7 +87,7 @@ compose.desktop {
                     org.jetbrains.compose.desktop.application.dsl.TargetFormat.AppImage
                 )
             }
-            packageName = "SpeeduinoManagerDesktop"
+            packageName = "AvtoVetManager"
             packageVersion = rootProject.version.toString()
 
             linux {
@@ -95,7 +95,7 @@ compose.desktop {
             }
             windows {
                 iconFile.set(project.file("../assets/icon.ico"))
-                menuGroup = "SpeeduinoManagerDesktop"
+                menuGroup = "AvtoVetManager"
                 shortcut = true
             }
             macOS {
@@ -115,7 +115,7 @@ val msixPublisherCN: String = (project.findProperty("msixPublisherCN") as String
     ?: "5F9CC0D0-18CD-4B58-BC0F-D353EDA0FC90"
 val msixPublisherDisplayName: String =
     (project.findProperty("msixPublisherDisplayName") as String?) ?: "PowerfoolTech"
-val msixExecutable = "SpeeduinoManagerDesktop.exe"
+val msixExecutable = "AvtoVetManager.exe"
 
 val msixStagingDir = layout.buildDirectory.dir("msix/staging")
 val msixOutputDir = layout.buildDirectory.dir("msix/output")
@@ -125,7 +125,7 @@ val prepareMsixLayout by tasks.registering(Sync::class) {
     description = "Assembles the app-image plus MSIX manifest/assets into a staging folder."
     dependsOn("createReleaseDistributable")
 
-    from(layout.buildDirectory.dir("compose/binaries/main-release/app/SpeeduinoManagerDesktop"))
+    from(layout.buildDirectory.dir("compose/binaries/main-release/app/AvtoVetManager"))
     from(project.file("../assets/msix")) {
         include("*.png")
     }
@@ -161,7 +161,7 @@ val packageMsix by tasks.registering(Exec::class) {
     dependsOn(prepareMsixLayout)
 
     val outDir = msixOutputDir.get().asFile
-    val outFile = outDir.resolve("SpeeduinoManagerDesktop-${rootProject.version}.msix")
+    val outFile = outDir.resolve("AvtoVetManager-${rootProject.version}.msix")
 
     doFirst {
         outDir.mkdirs()
@@ -202,7 +202,7 @@ val signMsix by tasks.registering(Exec::class) {
 
     val certPath = project.findProperty("msixCertPath") as String?
     val certPassword = (project.findProperty("msixCertPassword") as String?) ?: ""
-    val outFile = msixOutputDir.get().asFile.resolve("SpeeduinoManagerDesktop-${rootProject.version}.msix")
+    val outFile = msixOutputDir.get().asFile.resolve("AvtoVetManager-${rootProject.version}.msix")
 
     doFirst {
         require(!certPath.isNullOrBlank()) {

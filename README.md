@@ -1,8 +1,8 @@
 ![Onboarding](docs/onboarding.png)
 
-# SpeeduinoManager Desktop
+# AvtoVetManager
 
-Cross-platform desktop client for Speeduino ECUs, built with Kotlin Multiplatform and based on the SpeeduinoManager Android project. It reuses the Android protocol/models/connection core and delivers a modern, consistent desktop UI.
+Cross-platform desktop client for Speeduino ECUs, built with Kotlin Multiplatform and based on the AvtoVetManager Android project. It reuses the Android protocol/models/connection core and delivers a modern, consistent desktop UI.
 
 ## Highlights
 
@@ -34,7 +34,7 @@ Cross-platform desktop client for Speeduino ECUs, built with Kotlin Multiplatfor
 ## Build and run
 
 ```bash
-cd SpeeduinoManagerDesktop
+cd AvtoVetManager
 ./gradlew :desktopApp:run
 ```
 

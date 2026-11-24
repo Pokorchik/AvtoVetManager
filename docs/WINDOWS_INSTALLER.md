@@ -7,7 +7,7 @@ Este projeto consegue gerar um instalador Windows funcional usando **Inno Setup*
 - O fluxo `jpackage`/WiX do Compose Desktop **nao esta confiavel neste ambiente**.
 - O instalador que funcionou foi gerado com **Inno Setup**.
 - Arquivo final esperado:
-  - `build/inno/SpeeduinoManagerDesktop-1.0.4-setup.exe`
+  - `build/inno/AvtoVetManager-1.0.4-setup.exe`
 
 ## Pre-requisitos
 
@@ -37,11 +37,11 @@ C:\tmp\InnoSetup6\ISCC.exe
 ## Arquivos envolvidos
 
 - Script do instalador:
-  - `build/inno/SpeeduinoManagerDesktop.iss`
+  - `build/inno/AvtoVetManager.iss`
 - Distribuicao release do app:
-  - `desktopApp/build/compose/binaries/main-release/app/SpeeduinoManagerDesktop`
+  - `desktopApp/build/compose/binaries/main-release/app/AvtoVetManager`
 - Saida final:
-  - `build/inno/SpeeduinoManagerDesktop-1.0.4-setup.exe`
+  - `build/inno/AvtoVetManager-1.0.4-setup.exe`
 
 ## Passo a passo
 
@@ -55,13 +55,13 @@ $env:GRADLE_USER_HOME = Join-Path $PWD '.gradle-user-home'
 2. Compilar o instalador Inno Setup:
 
 ```powershell
-& 'C:\tmp\InnoSetup6\ISCC.exe' 'C:\Users\Alexandre\Documents\SpeeduinoManagerDesktop\build\inno\SpeeduinoManagerDesktop.iss'
+& 'C:\tmp\InnoSetup6\ISCC.exe' 'C:\Users\Alexandre\Documents\AvtoVetManager\build\inno\AvtoVetManager.iss'
 ```
 
 3. Pegar o artefato final em:
 
 ```text
-build/inno/SpeeduinoManagerDesktop-1.0.4-setup.exe
+build/inno/AvtoVetManager-1.0.4-setup.exe
 ```
 
 ## Observacoes
@@ -69,7 +69,7 @@ build/inno/SpeeduinoManagerDesktop-1.0.4-setup.exe
 - O script `.iss` atual instala em:
 
 ```text
-%LOCALAPPDATA%\Programs\SpeeduinoManagerDesktop
+%LOCALAPPDATA%\Programs\AvtoVetManager
 ```
 
 - O instalador cria:
@@ -78,7 +78,7 @@ build/inno/SpeeduinoManagerDesktop-1.0.4-setup.exe
   - desinstalador
 
 - Se a versao mudar, atualize no arquivo:
-  - `build/inno/SpeeduinoManagerDesktop.iss`
+  - `build/inno/AvtoVetManager.iss`
 
 Campos principais:
 

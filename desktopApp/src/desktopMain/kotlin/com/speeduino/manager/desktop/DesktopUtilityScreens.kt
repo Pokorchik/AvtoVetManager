@@ -103,7 +103,7 @@ internal fun LogsEcuToolsScreenDesktop(
 @Composable
 internal fun InstitutionalScreenDesktop(onReportProblem: () -> Unit) {
     val strings = LocalStrings.current
-    val repoUrl = "https://github.com/alexandrefelipemuller/SpeeduinoManagerDesktop"
+    val repoUrl = "https://github.com/alexandrefelipemuller/AvtoVetManager"
 
     UtilityScreenFrame(
         title = strings["label.institutionalTitle"],

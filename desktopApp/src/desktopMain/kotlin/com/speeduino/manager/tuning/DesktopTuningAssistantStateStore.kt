@@ -16,7 +16,7 @@ internal class DesktopTuningAssistantStateStore {
             state.logPath?.let { setProperty(KEY_LOG_PATH, it) }
             state.strategy?.let { setProperty(KEY_STRATEGY, it) }
         }
-        file.outputStream().use { props.store(it, "Speeduino Manager Desktop tuning assistant state") }
+        file.outputStream().use { props.store(it, "AvtoVetManager tuning assistant state") }
     }
 
     fun load(): DesktopTuningAssistantState {

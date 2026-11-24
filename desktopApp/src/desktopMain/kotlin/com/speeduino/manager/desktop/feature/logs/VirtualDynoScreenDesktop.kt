@@ -561,7 +561,7 @@ private fun exportVirtualDynoReport(
     notes: String,
     sourceFile: File?,
 ): File {
-    val reportDir = File(System.getProperty("user.home"), "SpeeduinoManagerDesktop/virtual_dyno_reports").also { it.mkdirs() }
+    val reportDir = File(System.getProperty("user.home"), "AvtoVetManager/virtual_dyno_reports").also { it.mkdirs() }
     val safeName = (sourceFile?.name ?: analysis.fileLabel ?: "log").replace(Regex("[^A-Za-z0-9._-]"), "_")
     val reportFile = File(reportDir, "virtual_dyno_${safeName}_${System.currentTimeMillis()}.txt")
     reportFile.writeText(analysis.toFeedbackText(expectedPower, notes))

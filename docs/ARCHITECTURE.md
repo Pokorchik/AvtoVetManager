@@ -28,7 +28,7 @@ O objetivo e mover codigo de protocolo e transporte para `shared` sem alterar co
 ## Diretorios esperados
 
 ```
-SpeeduinoManagerDesktop/
+AvtoVetManager/
   build.gradle.kts
   settings.gradle.kts
   shared/

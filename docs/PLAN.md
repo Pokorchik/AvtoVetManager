@@ -1,4 +1,4 @@
-# Plano de criacao - SpeeduinoManager Desktop
+# Plano de criacao - AvtoVetManager
 
 ## Visao geral
 
@@ -8,7 +8,7 @@ Criar um novo projeto Kotlin Multiplatform com alvo desktop Linux, reaproveitand
 
 ### Fase 1 - Bootstrap do projeto KMP
 
-- Criar novo repositorio/projeto Gradle dentro de `SpeeduinoManagerDesktop/`.
+- Criar novo repositorio/projeto Gradle dentro de `AvtoVetManager/`.
 - Configurar Gradle com Kotlin Multiplatform + Compose Multiplatform (desktop).
 - Definir modulo compartilhado `shared` (codigo comum) e modulo `desktopApp` (UI).
 
