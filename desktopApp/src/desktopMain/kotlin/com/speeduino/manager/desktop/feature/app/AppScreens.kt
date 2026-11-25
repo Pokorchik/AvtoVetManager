@@ -81,7 +81,8 @@ internal fun DashboardScreen(
     connectionState: ConnectionState,
     onOpenSettings: () -> Unit
 ) {
-    val importedId = controller.desktopSettings.collectAsState().value.importedDashboardId
+    val settings by controller.desktopSettings.collectAsState()
+    val importedId = settings.importedDashboardId
     val store = remember { com.speeduino.manager.desktop.realdash.ImportedDashboardStore() }
     val imported = remember(importedId) { importedId?.let(store::load) }
     if (imported != null) {
@@ -93,6 +94,8 @@ internal fun DashboardScreen(
                 modifier = Modifier.fillMaxSize().padding(10.dp),
             )
         }
+    } else if (settings.dashboardMode == com.speeduino.manager.desktop.DesktopDashboardMode.GAUGE_GRID) {
+        GaugeGridDashboardScreen(liveData, connectionState)
     } else {
         BuiltInDashboardScreen(controller, liveData, connectionState, onOpenSettings)
     }

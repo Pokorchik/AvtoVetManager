@@ -76,7 +76,7 @@ internal enum class TableDensity(val storageValue: String, val cellScale: Float)
     }
 }
 
-internal enum class DesktopDashboardMode { DEFAULT, PETROL, FUTURE, APEX }
+internal enum class DesktopDashboardMode { DEFAULT, PETROL, FUTURE, APEX, GAUGE_GRID }
 
 internal enum class InitialScreen { HOME, DASHBOARD }
 

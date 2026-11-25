@@ -525,6 +525,7 @@ private fun dashboardModeLabel(mode: DesktopDashboardMode, strings: com.speeduin
         DesktopDashboardMode.PETROL -> strings["label.dashboardModePetrol"]
         DesktopDashboardMode.FUTURE -> strings["label.dashboardModeFuture"]
         DesktopDashboardMode.APEX -> strings["label.dashboardModeApex"]
+        DesktopDashboardMode.GAUGE_GRID -> strings["label.dashboardModeGaugeGrid"]
     }
 }
 

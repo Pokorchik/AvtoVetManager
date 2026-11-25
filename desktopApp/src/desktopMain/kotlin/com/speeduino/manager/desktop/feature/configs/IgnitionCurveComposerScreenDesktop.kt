@@ -177,15 +177,13 @@ internal fun IgnitionCurveComposerScreenDesktop(controller: DesktopSpeeduinoCont
                 }
             }
 
-            Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                Text(strings["label.curveComposerBase"], style = MaterialTheme.typography.labelMedium)
-                OutlinedTextField(
-                    value = base.toString(),
-                    onValueChange = { it.toIntOrNull()?.let { v -> base = v } },
-                    modifier = Modifier.width(100.dp),
-                    singleLine = true
-                )
-            }
+            OutlinedTextField(
+                value = base.toString(),
+                onValueChange = { it.toIntOrNull()?.let { v -> base = v } },
+                label = { Text(strings["label.curveComposerBase"]) },
+                modifier = Modifier.width(140.dp),
+                singleLine = true
+            )
 
             if (currentTable != null) {
                 KioskPanelCard(strings["label.curveComposerTablePreview"]) {
