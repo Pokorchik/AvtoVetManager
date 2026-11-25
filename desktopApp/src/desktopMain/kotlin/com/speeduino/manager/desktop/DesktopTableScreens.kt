@@ -439,6 +439,15 @@ private fun <T> MapTableScreen(
                                 }
                             }
                         }
+                        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                            HeaderCell(strings["label.loadRpm"])
+                            rpm.forEachIndexed { index, value ->
+                                HeaderCell(value.toString(), highlighted = activeCell?.first == index) {
+                                    editTarget = TableEditTarget.Rpm(index)
+                                    editValue = value.toString()
+                                }
+                            }
+                        }
                     }
                     VerticalScrollbar(
                         adapter = rememberScrollbarAdapter(verticalScroll),

@@ -38,6 +38,8 @@ import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.speeduino.manager.desktop.DesktopSpeeduinoController
@@ -50,6 +52,8 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.round
 import kotlin.math.sin
+
+private fun Float.toSp() = TextUnit(this, TextUnitType.Sp)
 
 /**
  * Builds the 2D Speeduino/MS ignition table (RPM x MAP) from two 123ignition-style curves -
@@ -162,7 +166,8 @@ internal fun IgnitionCurveComposerScreenDesktop(controller: DesktopSpeeduinoCont
                         yLabel = "°",
                         color = MaterialTheme.colorScheme.primary,
                         points = rpmCurve,
-                        onPointsChange = { rpmCurve = it }
+                        onPointsChange = { rpmCurve = it },
+                        currentX = liveRpm.toDouble()
                     )
                 }
                 Box(modifier = Modifier.weight(1f)) {
@@ -172,7 +177,8 @@ internal fun IgnitionCurveComposerScreenDesktop(controller: DesktopSpeeduinoCont
                         yLabel = "°",
                         color = MaterialTheme.colorScheme.secondary,
                         points = mapCurve,
-                        onPointsChange = { mapCurve = it }
+                        onPointsChange = { mapCurve = it },
+                        currentX = liveMapKpa.toDouble()
                     )
                 }
             }
@@ -239,7 +245,8 @@ private fun CurveEditorCard(
     yLabel: String,
     color: Color,
     points: List<Pair<Int, Int>>,
-    onPointsChange: (List<Pair<Int, Int>>) -> Unit
+    onPointsChange: (List<Pair<Int, Int>>) -> Unit,
+    currentX: Double? = null
 ) {
     KioskPanelCard(title) {
         Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -248,6 +255,7 @@ private fun CurveEditorCard(
                 color = color,
                 xLabel = xLabel,
                 yLabel = yLabel,
+                currentX = currentX,
                 modifier = Modifier.fillMaxWidth().height(180.dp)
             )
             points.forEachIndexed { index, (x, y) ->
@@ -290,6 +298,7 @@ private fun CurveChart(
     color: Color,
     xLabel: String,
     yLabel: String,
+    currentX: Double? = null,
     modifier: Modifier = Modifier
 ) {
     val gridColor = MaterialTheme.colorScheme.outlineVariant
@@ -341,6 +350,16 @@ private fun CurveChart(
         val yUnit = textMeasurer.measure(text = yLabel, style = labelStyle())
         drawText(yUnit, topLeft = Offset(leftPad + 2f, topPad))
 
+        if (currentX != null && currentX in xMin..xMax) {
+            val px = sx(currentX)
+            drawLine(
+                color = Color.Red,
+                start = Offset(px, topPad),
+                end = Offset(px, size.height - bottomPad),
+                strokeWidth = 2f,
+            )
+        }
+
         val path = androidx.compose.ui.graphics.Path().apply {
             sorted.forEachIndexed { i, (x, y) ->
                 if (i == 0) moveTo(sx(x.toDouble()), sy(y.toDouble())) else lineTo(sx(x.toDouble()), sy(y.toDouble()))
@@ -361,23 +380,58 @@ private fun IgnitionTablePreview(
     angleAt: (Double, Double) -> Double
 ) {
     val textMeasurer = rememberTextMeasurer()
-    Canvas(modifier = Modifier.fillMaxWidth().height(220.dp)) {
+    val axisColor = MaterialTheme.colorScheme.onSurfaceVariant
+    Canvas(modifier = Modifier.fillMaxWidth().height(340.dp)) {
         val rows = loadBins.size
         val cols = rpmBins.size
         if (rows == 0 || cols == 0) return@Canvas
-        val cellW = size.width / cols
-        val cellH = size.height / rows
+        val leftPad = 34f
+        val bottomPad = 22f
+        val gridW = size.width - leftPad
+        val gridH = size.height - bottomPad
+        val cellW = gridW / cols
+        val cellH = gridH / rows
+        val fontSize = (minOf(cellW, cellH) * 0.42f).coerceIn(7f, 13f)
+        val axisStyle = TextStyle(color = axisColor, fontSize = 8.sp)
+
         for (r in 0 until rows) {
             val mapKpa = loadBins[r] * loadScale
             for (c in 0 until cols) {
                 val deg = angleAt(rpmBins[c].toDouble(), mapKpa)
                 val ratio = ((deg - CURVE_MIN_DEGREES) / (CURVE_MAX_DEGREES - CURVE_MIN_DEGREES)).coerceIn(0.0, 1.0)
                 val hue = (205f - ratio.toFloat() * 190f)
-                val color = Color.hsv(hue, 0.55f, 0.55f + ratio.toFloat() * 0.25f)
-                val top = size.height - (r + 1) * cellH
-                drawRect(color = color, topLeft = Offset(c * cellW, top), size = androidx.compose.ui.geometry.Size(cellW, cellH))
+                val lightness = 0.55f + ratio.toFloat() * 0.25f
+                val color = Color.hsv(hue, 0.55f, lightness)
+                val top = gridH - (r + 1) * cellH
+                val left = leftPad + c * cellW
+                drawRect(color = color, topLeft = Offset(left, top), size = androidx.compose.ui.geometry.Size(cellW, cellH))
+
+                val textColor = if (lightness > 0.62f) Color.Black else Color.White
+                val measured = textMeasurer.measure(
+                    text = round(deg).toInt().toString(),
+                    style = TextStyle(color = textColor, fontSize = fontSize.toSp(), textAlign = TextAlign.Center),
+                )
+                drawText(
+                    textLayoutResult = measured,
+                    topLeft = Offset(left + cellW / 2f - measured.size.width / 2f, top + cellH / 2f - measured.size.height / 2f),
+                )
             }
+
+            val rowLabel = textMeasurer.measure(text = loadBins[r].toString(), style = axisStyle)
+            val rowTop = gridH - (r + 1) * cellH
+            drawText(rowLabel, topLeft = Offset(leftPad - rowLabel.size.width - 4f, rowTop + cellH / 2f - rowLabel.size.height / 2f))
         }
+
+        for (c in 0 until cols) {
+            val colLabel = textMeasurer.measure(text = rpmBins[c].toString(), style = axisStyle)
+            val colLeft = leftPad + c * cellW
+            drawText(colLabel, topLeft = Offset(colLeft + cellW / 2f - colLabel.size.width / 2f, gridH + 4f))
+        }
+
+        val kpaUnit = textMeasurer.measure(text = "kPa", style = axisStyle)
+        drawText(kpaUnit, topLeft = Offset(0f, 0f))
+        val rpmUnit = textMeasurer.measure(text = "RPM", style = axisStyle)
+        drawText(rpmUnit, topLeft = Offset(size.width - rpmUnit.size.width, size.height - rpmUnit.size.height))
     }
 }
 
